@@ -1,0 +1,58 @@
+
+.mat-card {
+	margin: 8px;
+	text-align:left;
+}
+
+.overview-image {
+  background-image: url('assets/overview.png');
+  background-size: cover;
+}
+
+.overview-header {
+	margin-bottom: 8px;
+}
+.exp-arrow {
+	font-size: 3em;
+}
+
+
+.beh-image {
+  background-image: url('assets/beh.png');
+  background-size: cover;
+}
+
+.beh-header {
+	margin-bottom: 8px;
+}
+
+.protocol-diagram {
+	background-color: #F2F2F2;
+}
+
+.exp {
+	margin: 16px;
+}
+
+.desc-icon {
+  font-size: 40px;
+  height: 40px;
+  width: 40px;
+  margin-right: 4px;
+}
+
+.desc-entry {
+	min-width: 250px;
+	max-width: 250px;
+	width: 250px;
+	padding-bottom: 8px;
+}
+
+.pltc {
+	width: 100%;
+	height: 400px;
+}
+.addon_plot {
+	width: 100%;
+	height: 300px;
+}

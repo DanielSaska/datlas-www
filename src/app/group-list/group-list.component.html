@@ -1,0 +1,18 @@
+<mat-card *ngFor="let grp of response?.groups">
+	<mat-card-header class="overview-header">
+		<div mat-card-avatar class="overview-image"></div>
+		<mat-card-title><a href="group/{{grp._id}}">{{grp.name}}</a></mat-card-title>
+		<mat-card-subtitle>Number of recordings: {{grp.count}}</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		{{grp.description}}
+	</mat-card-content>
+	<mat-card-actions>
+	</mat-card-actions>
+</mat-card>
+
+<mat-card>
+
+	<mat-paginator [length]="response?.max" [pageSize]="response?.pg_size">
+	</mat-paginator>
+</mat-card>

@@ -1,0 +1,50 @@
+<mat-card>
+	<table mat-table [dataSource]="response?.recordings" fxFill>
+
+		<ng-container matColumnDef="id">
+			<th mat-header-cell *matHeaderCellDef> ID </th>
+			<td mat-cell *matCellDef="let element">
+				<a href="recording/{{element._id}}">{{element.human_id}}</a> 
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="date">
+			<th mat-header-cell *matHeaderCellDef> Date </th>
+			<td mat-cell *matCellDef="let element">
+				<div>{{element.datetime.toDateString()}}</div><div>{{element.datetime.getUTCHours()}}:{{element.datetime.getUTCMinutes()}}:{{element.datetime.getUTCSeconds()}}</div>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="experiment">
+			<th mat-header-cell *matHeaderCellDef> Experiment </th>
+			<td mat-cell *matCellDef="let element">
+				<mat-chip-list>
+					<mat-chip>{{element.experiment || 'Not available'}}</mat-chip>
+				</mat-chip-list>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="tags">
+			<th mat-header-cell *matHeaderCellDef> Tags </th>
+			<td mat-cell *matCellDef="let element">
+				<mat-chip-list>
+					<mat-chip *ngFor="let tag of element.tags">{{tag}}</mat-chip>
+				</mat-chip-list>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="duration">
+			<th mat-header-cell *matHeaderCellDef> Duration </th>
+			<td mat-cell *matCellDef="let element">
+				{{element.duration}}s
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	</table>
+	<mat-paginator [length]="response?.max"
+			 [pageSize]="response?.pg_size" 
+			 >
+	</mat-paginator>
+</mat-card>

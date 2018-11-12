@@ -1,0 +1,241 @@
+<div style="text-align:center">
+	<h1>
+		Recording #{{recording_id}}
+	</h1>
+	<mat-tab-group>
+		<mat-tab label="Overview">
+			<mat-card>
+				<mat-card-header class="overview-header">
+					<div mat-card-avatar class="overview-image"></div>
+					<mat-card-title>Recording Details</mat-card-title>
+					<mat-card-subtitle>Overview</mat-card-subtitle>
+				</mat-card-header>
+			<mat-card-content>
+					<div fxFlexFill fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-between none" >
+						<div fxLayoutAlign="left center" class="desc-entry">
+							<mat-icon class="desc-icon">date_range</mat-icon>
+							<div fxLayout="column">
+								<div><b>Date:</b></div>
+								<div>{{recording_details?.datetime?.toDateString()}}</div>
+							</div>
+						</div>
+						<div fxLayoutAlign="left center" class="desc-entry">
+							<mat-icon class="desc-icon">schedule</mat-icon>
+							<div fxLayout="column">
+								<div><b>Time:</b></div>
+								<div>{{recording_details?.datetime?.getUTCHours()}}:{{recording_details?.datetime?.getUTCMinutes()}}:{{recording_details?.datetime?.getUTCSeconds()}}</div>
+							</div>
+						</div>
+						<div fxLayoutAlign="left center" class="desc-entry">
+							<mat-icon class="desc-icon">hourglass_empty</mat-icon>
+							<div fxLayout="column">
+								<div><b>Duration:</b></div>
+								<div>{{recording_details?.duration || 'Unknown'}}s</div>
+							</div>
+						</div>
+						<div fxLayoutAlign="left center" class="desc-entry">
+							<mat-icon class="desc-icon">waves</mat-icon>
+							<div fxLayout="column">
+								<div><b>Sample age:</b></div>
+								<div>{{recording_details?.sample.dpf+" days" || 'Not available'}}</div>
+							</div>
+						</div>
+						<div fxLayoutAlign="left center" class="desc-entry">
+							<mat-icon class="desc-icon">blur_on</mat-icon>
+							<div fxLayout="column">
+								<div><b>Expression:</b></div>
+								<div>{{recording_details?.sample.expression || 'Not available'}}</div>
+							</div>
+						</div>
+						<div fxLayoutAlign="left center" class="desc-entry">
+							<mat-icon class="desc-icon">more</mat-icon>
+							<div fxLayout="column">
+								<div><b>Sample description:</b></div>
+								<div>{{recording_details?.sample.description || 'Not available'}}</div>
+							</div>
+						</div>
+						<div fxLayoutAlign="left center" class="desc-entry">
+							<mat-icon class="desc-icon">more</mat-icon>
+							<div fxLayout="column">
+								<div><b>Recording description:</b></div>
+								<div>{{recording_details?.description || 'Not available'}}</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<div><b>Experiment:</b></div>
+						<mat-chip-list>
+							<mat-chip>{{recording_details?.experiment || 'Not available'}}</mat-chip>
+						</mat-chip-list>
+					</div>
+
+					<div>
+						<div><b>Tags:</b></div>
+						<mat-chip-list>
+							<mat-chip *ngFor="let tag of recording_details?.tags">{{tag}}</mat-chip>
+						</mat-chip-list>
+					</div>
+				</mat-card-content>
+				<mat-card-actions>
+				</mat-card-actions>
+			</mat-card>
+			<div *ngIf="calcium_details">
+			<mat-card>
+				<mat-card-header>
+					<div mat-card-avatar class="caf-image"></div>
+					<mat-card-title>Calcium Fluorescence Recording</mat-card-title>
+					<mat-card-subtitle>Overview</mat-card-subtitle>
+				</mat-card-header>
+				<div mat-card-image class="cafdata" *ngIf="calcium_details.safe_yt">
+					<iframe [src]='calcium_details.safe_yt' frameborder="0" class="cafdata" allowfullscreen></iframe>
+				</div>
+				<mat-card-content *ngIf="calcium_details.summary">
+					<div fxFlexFill fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-between none" *ngIf="calcium_details.summary.entries">
+						<div fxLayoutAlign="left center" class="desc-entry" *ngFor="let entry of calcium_details.summary.entries">
+							<mat-icon class="desc-icon">{{entry.icon}}</mat-icon>
+							<div fxLayout="column">
+								<div><b>{{entry.name}}:</b></div>
+								<div>{{entry.value}}</div>
+							</div>
+						</div>
+					</div>
+				</mat-card-content>
+
+				<mat-card-actions>
+					<button mat-button>DETAILS</button>
+				</mat-card-actions>
+			</mat-card>
+			</div>
+			
+			<div *ngIf="behaviour_details">
+				<mat-card>
+					<mat-card-header class="beh-header">
+						<div mat-card-avatar class="beh-image"></div>
+						<mat-card-title>Behaviour Recording</mat-card-title>
+						<mat-card-subtitle>Overview</mat-card-subtitle>
+					</mat-card-header>
+					<div mat-card-image class="protocol-diagram">
+						<div style="width: 100%">
+							<div fxLayout="row wrap" fxLayoutAlign="space-around center" >
+								<div fxFlex *ngFor="let elem of behaviour_details?.summary.sequence">
+									<div fxFlex="column" fxFlex="<shrink> <shrink> <shrink>" class="exp">
+										<img src="assets/{{elem.img}}" />
+										<div fxLayoutAlign="center" *ngFor="let dtl of elem.details">{{dtl}}</div>
+									</div>
+									<div fxFlex="grow" fxLayoutAlign="center center" class="exp-arrow">
+										&#10143;
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<mat-card-content>
+					</mat-card-content>
+					<mat-card-actions>
+						<button mat-button>DETAILS</button>
+					</mat-card-actions>
+				</mat-card>
+			</div>
+
+			<mat-card *ngFor="let custd of custom_details">
+				<mat-card-header class="overview-header">
+					<div mat-card-avatar class="overview-image"></div>
+					<mat-card-title>{{custd.title}}</mat-card-title>
+					<mat-card-subtitle>{{custd.subtitle}}</mat-card-subtitle>
+				</mat-card-header>
+				<mat-card-content *ngIf="custd.summary">
+					<div fxFlexFill fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-between none" *ngIf="custd.summary.entries">
+						<div fxLayoutAlign="left center" class="desc-entry" *ngFor="let entry of custd.summary.entries">
+							<mat-icon class="desc-icon">{{entry.icon}}</mat-icon>
+							<div fxLayout="column">
+								<div><b>{{entry.name}}:</b></div>
+								<div>{{entry.value}}</div>
+							</div>
+						</div>
+					</div>
+				</mat-card-content>
+				<mat-card-actions>
+				</mat-card-actions>
+			</mat-card>
+
+		</mat-tab>
+		<div *ngIf="calcium_details">
+			<mat-tab label="Calcium Fluorescence">
+				Calcium Fluorescence
+				<mat-card>Some cool recording details</mat-card>
+				<mat-card>Some cool recording details</mat-card>
+				<mat-card>Some cool recording details</mat-card>
+				<mat-card>Some cool recording details</mat-card>
+				<mat-card>Some cool recording details</mat-card>
+				<mat-card>Some cool recording details</mat-card>
+			</mat-tab>
+		</div>
+		<div *ngIf="behaviour_details">
+			<mat-tab label="Behaviour">
+				<mat-card *ngFor="let addon of behaviour_addons">
+					<mat-card-header class="beh-header">
+						<div mat-card-avatar class="beh-image"></div>
+						<mat-card-title>{{addon.title}}</mat-card-title>
+						<mat-card-subtitle>{{addon.subtitle}}</mat-card-subtitle>
+					</mat-card-header>
+					<mat-card-content>
+						<div *ngIf="addon.plot" mat-card-image ><plotly-plot [data]="addon.plot.data" [layout]="addon.plot.layout" class="addon_plot" [useResizeHandler]="true"></plotly-plot></div>
+						<div [innerHTML]="addon.html"></div>
+					</mat-card-content>
+				</mat-card>
+
+			</mat-tab>
+		</div>
+		<div *ngFor="let custa of custom_addons">
+			<mat-tab label="GC">
+				<mat-card *ngFor="let addon of custa.addons">
+					<mat-card-header class="beh-header">
+						<div mat-card-avatar class="beh-image"></div>
+						<mat-card-title>{{addon.title}}</mat-card-title>
+						<mat-card-subtitle>{{addon.subtitle}}</mat-card-subtitle>
+					</mat-card-header>
+					<mat-card-content>
+						<div *ngIf="addon.plot" mat-card-image ><plotly-plot [data]="addon.plot.data" [layout]="addon.plot.layout" class="addon_plot" [useResizeHandler]="true"></plotly-plot></div>
+						<div [innerHTML]="addon.html"></div>
+					</mat-card-content>
+				</mat-card>
+
+			</mat-tab>
+		</div>
+
+		<div *ngIf="analysis_addons && analysis_addons.length > 0">
+			<mat-tab label="Analysis">
+				<mat-card *ngFor="let addon of analysis_addons">
+					<mat-card-header class="beh-header">
+						<div mat-card-avatar class="beh-image"></div>
+						<mat-card-title>{{addon.title}}</mat-card-title>
+						<mat-card-subtitle>{{addon.subtitle}}</mat-card-subtitle>
+					</mat-card-header>
+					<mat-card-content>
+						<div *ngIf="addon.plot" mat-card-image ><plotly-plot [data]="addon.plot.data" [layout]="addon.plot.layout" class="addon_plot" [useResizeHandler]="true"></plotly-plot></div>
+						<div [innerHTML]="addon.html"></div>
+					</mat-card-content>
+				</mat-card>
+			</mat-tab>
+		</div>
+		<div *ngIf="log_details && log_details.length > 0">
+			<mat-tab label="Logs">
+				<mat-card *ngFor="let log of log_details">
+					<mat-card-header class="beh-header">
+						<div mat-card-avatar class="beh-image"></div>
+						<mat-card-title>Log: {{log.name}}</mat-card-title>
+						<mat-card-subtitle></mat-card-subtitle>
+					</mat-card-header>
+					<mat-card-content>
+						<div class="log_entry">
+							{{log.log}}
+						</div>
+					</mat-card-content>
+				</mat-card>
+			</mat-tab>
+		</div>
+
+	</mat-tab-group>
+
+
