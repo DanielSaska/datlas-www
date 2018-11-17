@@ -3,6 +3,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 
+import cfg from '../../config';
+
 export interface RecordingDetails {
 	human_id: string;
 	datetime: Date;
@@ -45,7 +47,7 @@ export class ExperimentDetailsComponent implements OnInit {
 
 	constructor(private http: HttpClient,private route: ActivatedRoute,private _sanitizer: DomSanitizer) {
 		this.route.params.subscribe(params => {
-			this.http.get<ExperimentDetails>("https://api.e-zfish.org/api/v1/experiment/"+params.id+"/details").subscribe((res: ExperimentDetails) => {
+			this.http.get<ExperimentDetails>(cfg.apiUrl+"/v1/experiment/"+params.id+"/details").subscribe((res: ExperimentDetails) => {
 				this.experiment_name = res.name;
 				this.count = res.recordings.length;
 

@@ -3,6 +3,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 
+import cfg from '../../config';
+
 export interface BehSeqElem {
   details: string[];
 	name: string;
@@ -64,8 +66,25 @@ export interface CalciumDetails {
 	_id: string;
 }
 
+export interface SummaryEntry {
+	icon: string;
+	name: string:
+	value: string;
+}
 
+export interface Summary {
+	entries: SummaryEntry[];
+	sequence: BehSeqElem[];
+	youtube_reg_dfof: string;
+}
 
+export interface DataType {
+	_id: string;
+	rec_id: string;
+	data_type: string;
+	summary: Summary;
+	err: string[];
+}
 
 export interface SampleDetails {
 	expression: string[];
@@ -73,18 +92,17 @@ export interface SampleDetails {
 	description: string;
 }
 
-export interface RecordingDetails {
-	human_id: string;
+export interface Recording {
+	_id: string;
+	commit: string;
 	data_types: [string];
-	sample: SampleDetails;
-	datetime: Date;
-	duration: Number;
-	description: string;
-	experiment: string;
+	summary: Summary;
+	analysis: string;
 	tags: string[];
 	err: string[];
-	warn: string[];
-	_id: string;
+	human_id: string;
+	description: string;
+	experiment: string;
 }
 
 @Component({
@@ -99,7 +117,7 @@ export class RecordingDetailsComponent implements OnInit {
 	safeURL : any;
 	behaviour_addons: any;
 	analysis_addons: any;
-	recording_details: RecordingDetails;
+	recording_details: Recording;
 	behaviour_details: BehaviourDetails;
 	calcium_details: any;
 	log_details: any[] = [];
@@ -110,26 +128,26 @@ export class RecordingDetailsComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			console.log(params.id);
 
-			this.http.get<RecordingDetails>("https://api.e-zfish.org/api/v1/recording/"+params.id+"/recording/details").subscribe((res: RecordingDetails) => {
+			this.http.get<Recording>(cfg.apiUrl+"/v1/recording/"+params.id).subscribe((res: Recording) => {
 				this.recording_id = res.human_id;
-				if (res.datetime) {
-					res.datetime = new Date(res.datetime);
-				}
-				if (!res.sample.expression || res.sample.expression.length == 0) {
-					res.sample.expression = ["None"]
-				}
-				if (res.sample.description == "") {
-					res.sample.description = "No description";
-				}
 				if (res.description == "") {
 					res.description = "No description";
 				}
+				console.log(res);
+				for (let dtype of res.data_types) {
+					let url = cfg.apiUrl+"/v1/recording/"+params.id+"/"+dtype;
+					this.http.get<DataType>(url).subscribe((dt: DataType) => {
+						console.log(dt);
+					});
+				}
+
 				//console.log(res);
+				/*
 				this.recording_details = res;
 
 				//Load summary
 				for (let dtype of this.recording_details.data_types) {
-					let url = "https://api.e-zfish.org/api/v1/recording/"+params.id+"/"+dtype+"/summary";
+					let url = cfg.apiUrl+"/v1/recording/"+params.id+"/"+dtype+"/summary";
 					if (dtype == "vr") {
 						this.http.get<BehaviourDetails>(url).subscribe((res: BehaviourDetails) => {
 							this.behaviour_details = res;
@@ -147,15 +165,15 @@ export class RecordingDetailsComponent implements OnInit {
 						this.http.get<any>(url).subscribe((res: any) => {
 							console.log(res);
 							this.custom_details.push(res);
-						//TODO
+							//TODO
 						});
 
 					}
 				}
 
-				//Load details
+		//Load details
 				for (let dtype of this.recording_details.data_types) {
-					let url = "https://api.e-zfish.org/api/v1/recording/"+params.id+"/"+dtype+"/addons";
+					let url = cfg.apiUrl+"/v1/recording/"+params.id+"/"+dtype+"/addons";
 					if (dtype == "vr") {
 						this.http.get<BehaviourDetails>(url).subscribe((res: BehaviourDetails) => {
 							let addons = [];
@@ -173,7 +191,7 @@ export class RecordingDetailsComponent implements OnInit {
 							this.behaviour_addons = addons
 						});
 					} else if (dtype == "ca") {
-						//TODO
+				//TODO
 					} else if (dtype == "logs") {
 						this.http.get<any>(url).subscribe((res: any) => {
 							//console.log(res);
@@ -192,13 +210,15 @@ export class RecordingDetailsComponent implements OnInit {
 						this.http.get<any>(url).subscribe((res: any) => {
 							console.log(res);
 							this.custom_addons.push(res);
-						//TODO
+							//TODO
 						});
 					}
 				}
-			});
+			*/
+						});
 
-			this.http.get<AnalysisDetails>("https://api.e-zfish.org/api/v1/recording/"+params.id+"/analysis/addons").subscribe((res: AnalysisDetails) => {
+			/*
+			this.http.get<AnalysisDetails>(cfg.apiUrl+"/v1/recording/"+params.id+"/analysis/addons").subscribe((res: AnalysisDetails) => {
 				console.log(res);
 				let addons = [];
 
@@ -214,6 +234,7 @@ export class RecordingDetailsComponent implements OnInit {
 				}
 				this.analysis_addons = addons
 			});
+			 */
 
 
 		});

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 
+import cfg from '../../config';
+
 export interface SampleDetails {
 	expression: string[];
 	dpf: Number;
@@ -45,7 +47,7 @@ export class RecordingListComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 	constructor(private http: HttpClient) {
-		this.http.get<Response>("https://api.e-zfish.org/api/v1/recordings/0").subscribe((res: Response) => {
+		this.http.get<Response>(cfg.apiUrl+"/v1/recordings/0").subscribe((res: Response) => {
 			for (let r of res.recordings) {
 				r.datetime = new Date(r.datetime);
 			}
@@ -58,7 +60,7 @@ export class RecordingListComponent implements OnInit {
 
     loadLessonsPage() {
 		 let start = this.paginator.pageIndex * <number>this.response.pg_size;
-		this.http.get<Response>("https://api.e-zfish.org/api/v1/recordings/"+start.toString()).subscribe((res: Response) => {
+		this.http.get<Response>(cfg.apiUrl+"/v1/recordings/"+start.toString()).subscribe((res: Response) => {
 			for (let r of res.recordings) {
 				r.datetime = new Date(r.datetime);
 			}

@@ -3,6 +3,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 
+import cfg from '../../config';
+
 
 export interface RecordingDetails {
 	human_id: string;
@@ -49,7 +51,7 @@ export class GroupDetailsComponent implements OnInit {
 
 	constructor(private http: HttpClient,private route: ActivatedRoute,private _sanitizer: DomSanitizer) {
 		this.route.params.subscribe(params => {
-			this.http.get<GroupDetails>("https://api.e-zfish.org/api/v1/group/"+params.id+"/details").subscribe((res: GroupDetails) => {
+			this.http.get<GroupDetails>(cfg.apiUrl+"/v1/group/"+params.id+"/details").subscribe((res: GroupDetails) => {
 				this.group_name = res.name;
 				this.group_description = res.description;
 				this.count = res.recordings.length;

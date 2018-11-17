@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 
+import cfg from '../../config';
+
 export interface GroupDetails {
 	name: string;
 	description: string;
@@ -34,7 +36,7 @@ export class GroupListComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 	constructor(private http: HttpClient) {
-		this.http.get<Response>("https://api.e-zfish.org/api/v1/groups/0").subscribe((res: Response) => {
+		this.http.get<Response>(cfg.apiUrl+"/v1/groups/0").subscribe((res: Response) => {
 			this.response = res;
 
 		});
@@ -44,7 +46,7 @@ export class GroupListComponent implements OnInit {
 
 	loadLessonsPage() {
 		let start = this.paginator.pageIndex * <number>this.response.pg_size;
-		this.http.get<Response>("https://api.e-zfish.org/api/v1/groups/"+start.toString()).subscribe((res: Response) => {
+		this.http.get<Response>(cfg.apiUrl+"/v1/groups/"+start.toString()).subscribe((res: Response) => {
 			this.response = res;
 
 		});

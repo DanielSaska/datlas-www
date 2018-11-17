@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 
+import cfg from '../../config';
+
 export interface TagDetails {
 	name: string;
 	count: Number;
@@ -32,7 +34,7 @@ export class TagListComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 	constructor(private http: HttpClient) {
-		this.http.get<Response>("https://api.e-zfish.org/api/v1/tags/0").subscribe((res: Response) => {
+		this.http.get<Response>(cfg.apiUrl+"/v1/tags/0").subscribe((res: Response) => {
 			this.response = res;
 
 		});
@@ -42,7 +44,7 @@ export class TagListComponent implements OnInit {
 
 	loadLessonsPage() {
 		let start = this.paginator.pageIndex * <number>this.response.pg_size;
-		this.http.get<Response>("https://api.e-zfish.org/api/v1/tags/"+start.toString()).subscribe((res: Response) => {
+		this.http.get<Response>(cfg.apiUrl+"/v1/tags/"+start.toString()).subscribe((res: Response) => {
 			this.response = res;
 
 		});
