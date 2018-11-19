@@ -17,6 +17,27 @@
 					<mat-card-title>Recording Details</mat-card-title>
 					<mat-card-subtitle>Overview</mat-card-subtitle>
 				</mat-card-header>
+				<div mat-card-image class="protocol-diagram" *ngIf="recording && recording.summary.sequence">
+					<div style="width: 100%">
+						<div fxLayout="row wrap" fxLayoutAlign="space-around center" >
+							<div fxFlex *ngFor="let elem of dt?.summary.sequence">
+								<div fxFlex="column" fxFlex="<shrink> <shrink> <shrink>" class="exp">
+									<img src="assets/{{elem.img}}" />
+									<div fxLayoutAlign="center" *ngFor="let dtl of elem.details">{{dtl}}</div>
+								</div>
+								<div fxFlex="grow" fxLayoutAlign="center center" class="exp-arrow">
+									&#10143;
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div mat-card-image class="cafdata" *ngIf="recording && recording.summary.youtube_safe">
+					<iframe [src]='dt.summary.youtube_safe' frameborder="0" class="cafdata" allowfullscreen></iframe>
+				</div>
+
+
 				<mat-card-content>
 
 					<div fxFlexFill *ngIf="recording && recording.summary.entries" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-between none">
@@ -27,7 +48,7 @@
 								<div>{{entry.value}}</div>
 							</div>
 						</div>
-	
+
 					</div>
 					<div>
 						<div><b>Experiment:</b></div>
@@ -53,6 +74,27 @@
 					<mat-card-title>{{dt.name}}</mat-card-title>
 					<mat-card-subtitle>Summary</mat-card-subtitle>
 				</mat-card-header>
+
+				<div mat-card-image class="protocol-diagram" *ngIf="dt.summary && dt.summary.sequence">
+					<div style="width: 100%">
+						<div fxLayout="row wrap" fxLayoutAlign="space-around center" >
+							<div fxFlex *ngFor="let elem of dt?.summary.sequence">
+								<div fxFlex="column" fxFlex="<shrink> <shrink> <shrink>" class="exp">
+									<img src="assets/{{elem.img}}" />
+									<div fxLayoutAlign="center" *ngFor="let dtl of elem.details">{{dtl}}</div>
+								</div>
+								<div fxFlex="grow" fxLayoutAlign="center center" class="exp-arrow">
+									&#10143;
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div mat-card-image class="cafdata" *ngIf="dt.summary && dt.summary.youtube_safe">
+					<iframe [src]='dt.summary.youtube_safe' frameborder="0" class="cafdata" allowfullscreen></iframe>
+				</div>
+
 				<mat-card-content *ngIf="dt.summary">
 					<div fxFlexFill fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-between none" *ngIf="dt.summary.entries">
 						<div fxLayoutAlign="left center" class="desc-entry" *ngFor="let entry of dt.summary.entries">

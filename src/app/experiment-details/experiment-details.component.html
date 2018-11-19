@@ -122,15 +122,17 @@
 							<mat-card-title>{{a.data.title}}</mat-card-title>
 							<mat-card-subtitle>{{a.data.subtitle}}</mat-card-subtitle>
 						</mat-card-header>
-						<mat-card-content fxFlexFill>
-							<div *ngIf="a.data.plot" mat-card-image fxLayoutAlign="center center"><plotly-plot [data]="a.data.plot.data" [layout]="a.data.plot.layout" class="addon_plot" [useResizeHandler]="true"></plotly-plot></div>
+						<mat-card-content>
+							<div *ngIf="a.data.plot" mat-card-image><plotly-plot [data]="a.data.plot.data" [layout]="a.data.plot.layout" class="addon_plot" [useResizeHandler]="true"></plotly-plot></div>
 							<div [innerHTML]="a.data.html"></div>
 						</mat-card-content>
 					</div>
 					<div *ngIf="!a" fxFlexFill>
+						<mat-card-content>
 						<div fxLayoutAlign="center center">
 							<mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 						</div>
+						</mat-card-content>
 					</div>
 				</mat-card>
 			</mat-tab>

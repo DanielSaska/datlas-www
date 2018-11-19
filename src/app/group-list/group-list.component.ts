@@ -44,7 +44,7 @@ export class GroupListComponent implements OnInit {
 	}
 
 
-	loadLessonsPage() {
+	flipPage() {
 		let start = this.paginator.pageIndex * <number>this.response.pg_size;
 		this.http.get<Response>(cfg.apiUrl+"/v1/groups/"+start.toString()).subscribe((res: Response) => {
 			this.response = res;
@@ -55,7 +55,7 @@ export class GroupListComponent implements OnInit {
 	ngAfterViewInit() {
 		this.paginator.page
 			.pipe(
-				tap(() => this.loadLessonsPage())
+				tap(() => this.flipPage())
 			)
 			.subscribe();
 	}

@@ -129,10 +129,10 @@ export class TagDetailsComponent implements OnInit {
 		this.recordings = null;
 
 		for (let r of res.recordings) {
+			if (!r.custom) { r.custom = {}; }
 			if (r.summary && r.summary.entries) {
 				for (let e of r.summary.entries) {
 					if (e.list) {
-						if (!r.custom) { r.custom = {}; }
 						if (!r.custom[e.name]) { r.custom[e.name] = e.value.toString(); }
 						else {r.custom[e.name] += ", " + e.value.toString(); };
 

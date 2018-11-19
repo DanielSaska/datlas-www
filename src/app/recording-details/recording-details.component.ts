@@ -6,14 +6,10 @@ import { MatSnackBar } from '@angular/material';
 
 import cfg from '../../config';
 
-export interface BehSeqElem {
+export interface SummarySequenceElem {
 	details: string[];
 	name: string;
 	img: string;
-}
-export interface BehSumm {
-	sequence: BehSeqElem[];
-	youtube_reg_dfof: string;
 }
 
 export interface AnalysisData {
@@ -41,8 +37,9 @@ export interface SummaryEntry {
 
 export interface Summary {
 	entries: SummaryEntry[];
-	sequence: BehSeqElem[];
-	youtube_reg_dfof: string;
+	sequence: SummarySequenceElem[];
+	youtube: string;
+	youtube_safe: object;
 }
 
 export interface DataType {
@@ -89,6 +86,9 @@ export class RecordingDetailsComponent implements OnInit {
 				for (let a of res.analysis) {
 					res.ana.push(null);
 				}
+				if (res.summary.youtube) {
+					res.summary.youtube_safe = this._sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/"+res.summary.youtube);
+				}
 				this.recording = res;
 				console.log(res);
 				for (let dtype of res.data_types) {
@@ -96,6 +96,10 @@ export class RecordingDetailsComponent implements OnInit {
 					this.http.get<DataType>(url).subscribe(async (dt: DataType) => {
 						//console.log(dt);
 						dt.vis = [];
+						if (dt.summary.youtube) {
+							dt.summary.youtube_safe = this._sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/"+dt.summary.youtube);
+						}
+
 						for (let v of dt.visualizations) {
 							dt.vis.push(null);
 						}
