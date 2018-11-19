@@ -16,60 +16,6 @@ export interface BehSumm {
 	youtube_reg_dfof: string;
 }
 
-
-
-export interface BehAddon {
-	title: string;
-	subtitle: string;
-	html: string;
-	plot: object;
-	priority: number;
-}
-
-export interface AnaAddon {
-	title: string;
-	subtitle: string;
-	html: string;
-	plot: object;
-	priority: number;
-}
-
-export interface BehaviourDetails {
-	summary: BehSumm;
-	err: string[];
-	_id: string;
-	addons: BehAddon[];
-}
-
-export interface AnalysisDetails {
-	err: string[];
-	warn: string[];
-	_id: string;
-	addons: AnaAddon[];
-}
-
-export interface CalciumVolume {
-	start: number;
-	end: number;
-	planes: number;
-	flyback: number;
-}
-
-export interface CalciumDetails {
-	summary: BehSumm;
-	name: string;
-	description: string;
-	experiment_description: string;
-	fps: number;
-	volume: CalciumVolume;
-	safe_yt: any;
-	yt_url: string;
-	_id: string;
-}
-
-////////////
-//NEW
-
 export interface AnalysisData {
 	title: string;
 	subtitle: string;
