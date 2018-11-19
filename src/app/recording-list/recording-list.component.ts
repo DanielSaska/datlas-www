@@ -16,7 +16,7 @@ export interface SummaryEntry {
 	icon: string;
 	name: string;
 	value: string;
-	list: Boolean;
+	list: boolean;
 }
 
 export interface Summary {
@@ -31,7 +31,7 @@ export interface Recording {
 	commit: string;
 	data_types: [string];
 	summary: Summary;
-	custom: Object;
+	custom: object;
 	analysis: string;
 	tags: string[];
 	err: string[];
@@ -43,11 +43,11 @@ export interface Recording {
 
 export interface Response {
 	recordings: Recording[];
-	start: Number;
-	next: Number;
-	pg_size: Number;
-	max_pg: Number;
-	n_entries: Number;
+	start: number;
+	next: number;
+	pg_size: number;
+	max_pg: number;
+	n_entries: number;
 
 }
 
@@ -58,7 +58,7 @@ export interface Response {
 })
 export class RecordingListComponent implements OnInit {
 	dispCols: string[] = ['id', 'experiment', 'tags'];
-	userCols: Object[] = [];
+	userCols: object[] = [];
 	response: Response = null;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 

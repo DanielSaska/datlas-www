@@ -22,16 +22,16 @@ export interface BehAddon {
 	title: string;
 	subtitle: string;
 	html: string;
-	plot: Object;
-	priority: Number;
+	plot: object;
+	priority: number;
 }
 
 export interface AnaAddon {
 	title: string;
 	subtitle: string;
 	html: string;
-	plot: Object;
-	priority: Number;
+	plot: object;
+	priority: number;
 }
 
 export interface BehaviourDetails {
@@ -49,10 +49,10 @@ export interface AnalysisDetails {
 }
 
 export interface CalciumVolume {
-	start: Number;
-	end: Number;
-	planes: Number;
-	flyback: Number;
+	start: number;
+	end: number;
+	planes: number;
+	flyback: number;
 }
 
 export interface CalciumDetails {
@@ -60,7 +60,7 @@ export interface CalciumDetails {
 	name: string;
 	description: string;
 	experiment_description: string;
-	fps: Number;
+	fps: number;
 	volume: CalciumVolume;
 	safe_yt: any;
 	yt_url: string;
@@ -74,8 +74,8 @@ export interface AnalysisData {
 	title: string;
 	subtitle: string;
 	html: string;
-	plot: Object;
-	priority: Number;
+	plot: object;
+	priority: number;
 }
 
 
@@ -107,7 +107,7 @@ export interface DataType {
 	data_type: string;
 	summary: Summary;
 	visualizations: Visualization[];
-	vis: Object[];
+	vis: object[];
 	err: string[];
 }
 

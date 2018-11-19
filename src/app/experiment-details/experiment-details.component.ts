@@ -32,8 +32,8 @@ export interface AnalysisData {
 	title: string;
 	subtitle: string;
 	html: string;
-	plot: Object;
-	priority: Number;
+	plot: object;
+	priority: number;
 }
 
 export interface Visualization {
@@ -59,7 +59,7 @@ export interface Recording {
 	commit: string;
 	data_types: string[];
 	summary: Summary;
-	custom: Object;
+	custom: object;
 	tags: string[];
 	human_id: string;
 	experiment: string;
@@ -67,11 +67,11 @@ export interface Recording {
 
 export interface Response {
 	recordings: Recording[];
-	start: Number;
-	next: Number;
-	pg_size: Number;
-	max_pg: Number;
-	n_entries: Number;
+	start: number;
+	next: number;
+	pg_size: number;
+	max_pg: number;
+	n_entries: number;
 
 }
 

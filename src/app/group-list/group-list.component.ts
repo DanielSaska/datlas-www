@@ -9,18 +9,18 @@ import cfg from '../../config';
 export interface GroupDetails {
 	name: string;
 	description: string;
-	count: Number;
+	count: number;
 	_id: string;
 }
 
 
 export interface Response {
 	groups: GroupDetails[];
-	start: Number;
-	next: Number;
-	pg_size: Number;
-	max_pg: Number;
-	n_entries: Number;
+	start: number;
+	next: number;
+	pg_size: number;
+	max_pg: number;
+	n_entries: number;
 
 }
 

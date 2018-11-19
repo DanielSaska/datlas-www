@@ -8,18 +8,18 @@ import cfg from '../../config';
 
 export interface ExperimentDetails {
 	name: string;
-	count: Number;
+	count: number;
 	_id: string;
 }
 
 
 export interface Response {
 	experiments: ExperimentDetails[];
-	start: Number;
-	next: Number;
-	pg_size: Number;
-	max_pg: Number;
-	n_entries: Number;
+	start: number;
+	next: number;
+	pg_size: number;
+	max_pg: number;
+	n_entries: number;
 
 }
 
