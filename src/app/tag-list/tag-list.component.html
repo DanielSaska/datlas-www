@@ -18,7 +18,7 @@
 		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 	</table>
-	<mat-paginator [length]="response?.max"
+	<mat-paginator [length]="response?.n_entries"
 			 [pageSize]="response?.pg_size" 
 			 >
 	</mat-paginator>

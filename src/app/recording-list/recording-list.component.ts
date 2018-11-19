@@ -6,33 +6,48 @@ import { tap } from 'rxjs/operators';
 
 import cfg from '../../config';
 
-export interface SampleDetails {
-	expression: string[];
-	dpf: Number;
-	description: string;
+export interface BehSeqElem {
+	details: string[];
+	name: string;
+	img: string;
 }
 
-export interface RecordingDetails {
-	human_id: string;
-	sample: SampleDetails;
-	datetime: Date;
-	duration: Number;
-	description: string;
-	experiment: string;
+export interface SummaryEntry {
+	icon: string;
+	name: string;
+	value: string;
+	list: Boolean;
+}
+
+export interface Summary {
+	entries: SummaryEntry[];
+	sequence: BehSeqElem[];
+	youtube_reg_dfof: string;
+}
+
+
+export interface Recording {
+	_id: string;
+	commit: string;
+	data_types: [string];
+	summary: Summary;
+	custom: Object;
+	analysis: string;
 	tags: string[];
 	err: string[];
-	warn: string[];
-	_id: string;
+	human_id: string;
+	experiment: string;
 }
+
 
 
 export interface Response {
-	recordings: RecordingDetails[];
+	recordings: Recording[];
 	start: Number;
 	next: Number;
 	pg_size: Number;
 	max_pg: Number;
-	max: Number;
+	n_entries: Number;
 
 }
 
@@ -42,40 +57,59 @@ export interface Response {
 	styleUrls: ['./recording-list.component.css']
 })
 export class RecordingListComponent implements OnInit {
-	displayedColumns: string[] = ['id', 'date', 'experiment', 'tags', 'duration'];
+	dispCols: string[] = ['id', 'experiment', 'tags'];
+	userCols: Object[] = [];
 	response: Response = null;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 	constructor(private http: HttpClient) {
 		this.http.get<Response>(cfg.apiUrl+"/v1/recordings/0").subscribe((res: Response) => {
-			for (let r of res.recordings) {
-				r.datetime = new Date(r.datetime);
-			}
-			this.response = res;
-
+			this.updateTable(res);
 		});
 
 	}
 
+	updateTable(res) {
+		this.dispCols = ['id', 'experiment', 'tags'];
+		this.userCols = [];
+		this.response = null;
 
-    loadLessonsPage() {
-		 let start = this.paginator.pageIndex * <number>this.response.pg_size;
-		this.http.get<Response>(cfg.apiUrl+"/v1/recordings/"+start.toString()).subscribe((res: Response) => {
-			for (let r of res.recordings) {
-				r.datetime = new Date(r.datetime);
+		for (let r of res.recordings) {
+			if (r.summary && r.summary.entries) {
+				for (let e of r.summary.entries) {
+					if (e.list) {
+						if (!r.custom) { r.custom = {}; }
+						if (!r.custom[e.name]) { r.custom[e.name] = e.value.toString(); }
+						else {r.custom[e.name] += ", " + e.value.toString(); };
+
+						if (!this.dispCols.includes("usr"+e.name)) {
+							this.userCols.push({def:"usr"+e.name,name:e.name});
+							this.dispCols.splice(this.dispCols.length-2,0,"usr"+e.name);
+						}
+					}
+				}
 			}
-			this.response = res;
+		}
+		//console.log(this.userCols);
+		//console.log(this.dispCols);
+		this.response = res;
+		//console.log(res);
+	}
 
+	flipPage() {
+		let start = this.paginator.pageIndex * <number>this.response.pg_size;
+		this.http.get<Response>(cfg.apiUrl+"/v1/recordings/"+start.toString()).subscribe((res: Response) => {
+			this.updateTable(res);
 		});
-    }
+	}
 
-    ngAfterViewInit() {
-        this.paginator.page
-            .pipe(
-                tap(() => this.loadLessonsPage())
-            )
-            .subscribe();
-    }
+	ngAfterViewInit() {
+		this.paginator.page
+			.pipe(
+				tap(() => this.flipPage())
+			)
+			.subscribe();
+	}
 
 	ngOnInit() {
 	}

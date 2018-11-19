@@ -5,7 +5,7 @@
 }
 
 .overview-image {
-  background-image: url('assets/overview.png');
+  background-image: url('/assets/overview.png');
   background-size: cover;
 }
 
@@ -18,7 +18,7 @@
 
 
 .beh-image {
-  background-image: url('assets/beh.png');
+  background-image: url('/assets/beh.png');
   background-size: cover;
 }
 

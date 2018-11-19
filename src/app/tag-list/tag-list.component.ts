@@ -19,7 +19,7 @@ export interface Response {
 	next: Number;
 	pg_size: Number;
 	max_pg: Number;
-	max: Number;
+	n_entries: Number;
 
 }
 
