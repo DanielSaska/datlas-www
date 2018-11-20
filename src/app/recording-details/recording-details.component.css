@@ -81,3 +81,7 @@
 	overflow-y: scroll;
 	white-space: pre-wrap;
 }
+.button-link {
+  color: inherit;
+  text-decoration: inherit;
+} 

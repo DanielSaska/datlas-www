@@ -107,6 +107,8 @@
 					</div>
 				</mat-card-content>
 				<mat-card-actions>
+					<a href="{{data_url}}/{{dt.data_type}}/{{recording._id}}.p" class="button-link"><button mat-button>Download</button></a>
+					<button mat-button (click)="showDetails(dt)">Details</button>
 				</mat-card-actions>
 			</mat-card>
 

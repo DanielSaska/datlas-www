@@ -101,7 +101,8 @@ import { ExperimentListComponent } from './experiment-list/experiment-list.compo
 import { TagDetailsComponent } from './tag-details/tag-details.component';
 import { TagListComponent } from './tag-list/tag-list.component';
 import { GroupDetailsComponent } from './group-details/group-details.component';
-import { GroupListComponent } from './group-list/group-list.component'
+import { GroupListComponent } from './group-list/group-list.component';
+import { RecordingDetailsDialogComponent } from './recording-details-dialog/recording-details-dialog.component';
 
 @NgModule({
 	declarations: [
@@ -113,6 +114,7 @@ import { GroupListComponent } from './group-list/group-list.component'
 		TagDetailsComponent, 
 		GroupListComponent,
 		GroupDetailsComponent,
+		RecordingDetailsDialogComponent,
 		TagListComponent
 	],
 	imports: [
@@ -124,6 +126,9 @@ import { GroupListComponent } from './group-list/group-list.component'
 		FlexLayoutModule,
 		PlotlyModule,
 		routingModule
+	],
+	entryComponents: [
+		RecordingDetailsDialogComponent
 	],
 
 	providers: [],

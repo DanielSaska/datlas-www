@@ -3,6 +3,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
+import { RecordingDetailsDialogComponent } from '../recording-details-dialog/recording-details-dialog.component';
 
 import cfg from '../../config';
 
@@ -76,9 +78,11 @@ export class RecordingDetailsComponent implements OnInit {
 	loading = true;
 	recording: Recording;
 	data_types: DataType[] = [];
+	data_url: string = cfg.dataUrl;
+	detailsDialogRef: MatDialogRef<RecordingDetailsDialogComponent>;
 
 
-	constructor(private http: HttpClient,private route: ActivatedRoute,private _sanitizer: DomSanitizer, private snackBar: MatSnackBar) {
+	constructor(private http: HttpClient,private route: ActivatedRoute,private _sanitizer: DomSanitizer, private snackBar: MatSnackBar, private dialog: MatDialog) {
 		this.route.params.subscribe(params => {
 
 			this.http.get<Recording>(cfg.apiUrl+"/v1/recording/"+params.id).subscribe(async (res: Recording) => {
@@ -90,7 +94,7 @@ export class RecordingDetailsComponent implements OnInit {
 					res.summary.youtube_safe = this._sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/"+res.summary.youtube);
 				}
 				this.recording = res;
-				console.log(res);
+				//console.log(res);
 				for (let dtype of res.data_types) {
 					let url = cfg.apiUrl+"/v1/recording/"+params.id+"/"+dtype;
 					this.http.get<DataType>(url).subscribe(async (dt: DataType) => {
@@ -139,6 +143,12 @@ export class RecordingDetailsComponent implements OnInit {
 			return dt.short_name;
 		}
 		return dt.name;
+	}
+
+	showDetails(dt) {
+		const dialogConfig = new MatDialogConfig();
+		dialogConfig.data = dt;
+		this.detailsDialogRef = this.dialog.open(RecordingDetailsDialogComponent,dialogConfig);
 	}
 
 }
