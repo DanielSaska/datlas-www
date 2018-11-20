@@ -147,7 +147,7 @@ export class RecordingDetailsComponent implements OnInit {
 
 	showDetails(dt) {
 		const dialogConfig = new MatDialogConfig();
-		dialogConfig.data = dt;
+		dialogConfig.data = dt.meta;
 		this.detailsDialogRef = this.dialog.open(RecordingDetailsDialogComponent,dialogConfig);
 	}
 

@@ -15,7 +15,6 @@ export class RecordingDetailsDialogComponent implements OnInit {
 	}
 
 	close() {
-		console.log(this.data);
 		this.dialogRef.close();
 	}
 
