@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+@include mat-core();
+$datlas-primary: mat-palette($mat-grey, 200, 500, 300);
+$datlas-accent:  mat-palette($mat-brown, 200);
+$datlas-warn:    mat-palette($mat-deep-orange, 200);
+$datlas-theme: mat-light-theme($datlas-primary, $datlas-accent, $datlas-warn);
+@include angular-material-theme($datlas-theme);
+
+$primary: mat-color($datlas-primary);
+$primary-light: mat-color($mat-grey, 200);
+$primary-dark: mat-color($mat-grey, 500);
+$primary-darkest: mat-color($mat-grey, 800);
+$accent: rgb(244, 247, 249);
+$primary: rgb(236, 239, 241);
+$warn: mat-color($datlas-warn);

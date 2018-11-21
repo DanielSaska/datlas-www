@@ -103,6 +103,7 @@ import { TagListComponent } from './tag-list/tag-list.component';
 import { GroupDetailsComponent } from './group-details/group-details.component';
 import { GroupListComponent } from './group-list/group-list.component';
 import { RecordingDetailsDialogComponent } from './recording-details-dialog/recording-details-dialog.component';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
 	declarations: [
@@ -115,6 +116,7 @@ import { RecordingDetailsDialogComponent } from './recording-details-dialog/reco
 		GroupListComponent,
 		GroupDetailsComponent,
 		RecordingDetailsDialogComponent,
+		LandingComponent,
 		TagListComponent
 	],
 	imports: [

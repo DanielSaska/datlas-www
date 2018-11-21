@@ -2,7 +2,7 @@
   <button mat-icon-button class="menu-icon">
     <mat-icon aria-label="Menu" (click)="toggleMenu()">menu</mat-icon>
   </button>
-	<span>Embodied Zebrafish Observatory</span>
+  <span>{{title}}</span>
 </mat-toolbar>
 <mat-sidenav-container fullscreen style="margin-top: 65px !important;">
 	<mat-sidenav fxLayout="column" mode="push" opened="false" #sidenav mode="side" class="sidenav">
@@ -30,9 +30,58 @@
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content>
-		<div class="content">
-		<router-outlet></router-outlet>
+		<div class="container" fxLayout="column">
+		<div class="content" fxFlex="grow">
+			<router-outlet></router-outlet>
 		</div>
+
+		<div class="footer">
+			<div class="row" fxLayoutAlign="center center">
+				<div class="links" fxLayout="row" fxLayoutAlign="space-around center">
+					<div>
+					<a href="https://github.com/DanielSaska/datlas-www" target="_blank" fxLayout="row" fxLayoutAlign="center center">
+						<i class="mdi mdi-github-circle mdi-24px"></i>
+						<span>www</span>
+					</a>
+					</div>
+					<div>
+					<a href="https://github.com/DanielSaska/datlas-api" target="_blank" fxLayout="row" fxLayoutAlign="center center">
+						<i class="mdi mdi-github-circle mdi-24px"></i>
+						<span>API</span>
+					</a>
+					</div>
+					<div>
+					<a href="https://github.com/DanielSaska/datlas" target="_blank" fxLayout="row" fxLayoutAlign="center center">
+						<i class="mdi mdi-github-circle mdi-24px"></i>
+						<span>datlas (python)</span>
+					</a>
+					</div>
+					<div>
+					<a href="https://hub.docker.com/r/danielsaska/datlas/" target="_blank" fxLayout="row" fxLayoutAlign="center center">
+						<i class="mdi mdi-docker mdi-24px"></i>
+						<span>datlas (python)</span>
+					</a>
+					</div>
+				</div>
+			</div>
+			<div class="row" fxLayoutAlign="space-between center" fxLayout="row">
+				<div></div>
+				<div>
+					{{title}} is powered by <a href="https://wwww.data-atlas.net/" target="_blank">Data Atlas</a>
+					&#169; <span class="year" data-testid="footer-year">{{year}}</span> - Daniel Saska
+				</div>
+
+				<div>
+
+					<a href="https://github.com/DanielSaska/datlas-www" target="_blank">
+						ver. {{version}} 
+					</a>
+				</div>
+			</div>
+		</div>
+		</div>
+
+
 	</mat-sidenav-content>
 
 </mat-sidenav-container>

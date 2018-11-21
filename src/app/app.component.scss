@@ -1,0 +1,89 @@
+@import "~theme.scss";
+@import '~mdi/css/materialdesignicons.min.css';
+
+
+
+
+.mat-toolbar.mat-primary{
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 9;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.24);
+}
+
+.content {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.container {
+   min-height:100%;
+}
+
+.sidenav {
+	min-width: 200px;
+	background-color: rgba(228, 228, 228, 0.35);
+	color: rgba(0, 0, 0, 0.87);
+}
+
+.toolbar-icon {
+	padding: 0 14px;
+}
+
+.menu-icon {
+	margin-left: -15px;
+}
+
+.toolbar-spacer {
+	flex: 1 1 auto;
+}
+
+.filler-content {
+	padding: 60px;
+}
+
+.footer {
+	padding: 0 15px;
+	text-align: center;
+
+	color: $primary-dark;
+	background-color: $primary-light;
+
+	a {
+		color: $primary-dark;
+		&:hover {
+			color: $primary-darkest;
+		}
+	}
+
+	.row {
+		padding: 10px 0;
+		font-size: 11px;
+
+		.links {
+			max-width: 500px;
+			div {
+				padding-left: 30px;
+				padding-right: 30px;
+			}
+			a {
+				text-decoration: none;
+				span {
+					padding-left: 3px;
+					text-align: left;
+					font-size: 14px;
+					white-space: nowrap;
+					&:visited {
+						color: $primary-dark;
+					}
+					&:hover {
+						color: $primary-darkest;
+					}
+				}
+			}
+		}
+	}
+}

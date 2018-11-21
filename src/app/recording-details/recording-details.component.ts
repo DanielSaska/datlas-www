@@ -139,7 +139,7 @@ export class RecordingDetailsComponent implements OnInit {
 	}
 
 	getShortName(dt: DataType) {
-		if (dt.short_name) {
+		if (dt.short_name && dt.short_name.length > 0) {
 			return dt.short_name;
 		}
 		return dt.name;

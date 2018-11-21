@@ -10,9 +10,10 @@ import { TagDetailsComponent } from './tag-details/tag-details.component';
 import { GroupDetailsComponent } from './group-details/group-details.component';
 import { GroupListComponent } from './group-list/group-list.component';
 import { TagListComponent } from './tag-list/tag-list.component';
+import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes = [
-	{ path: 'landing', component: AppComponent },
+	{ path: 'landing', component: LandingComponent },
 	{ path: 'recordings', component: RecordingListComponent },
 	{ path: 'tags', component: TagListComponent },
 	{ path: 'groups', component: GroupListComponent },
