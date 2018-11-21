@@ -47,3 +47,4 @@ Thumbs.db
 src/config.json
 firebase.json
 .firebaserc
+src/config.js
