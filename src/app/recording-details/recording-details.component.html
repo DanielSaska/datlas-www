@@ -17,7 +17,7 @@
 					<mat-card-title>Recording Details</mat-card-title>
 					<mat-card-subtitle>Overview</mat-card-subtitle>
 				</mat-card-header>
-				<div mat-card-image class="protocol-diagram" *ngIf="recording && recording.summary.sequence">
+				<div mat-card-image class="protocol-diagram" *ngIf="recording && recording.summary && recording.summary.sequence">
 					<div style="width: 100%">
 						<div fxLayout="row wrap" fxLayoutAlign="space-around center" >
 							<div fxFlex *ngFor="let elem of dt?.summary.sequence">
@@ -33,14 +33,14 @@
 					</div>
 				</div>
 
-				<div mat-card-image class="cafdata" *ngIf="recording && recording.summary.youtube_safe">
+				<div mat-card-image class="cafdata" *ngIf="recording && recording.summary && recording.summary.youtube_safe">
 					<iframe [src]='dt.summary.youtube_safe' frameborder="0" class="cafdata" allowfullscreen></iframe>
 				</div>
 
 
 				<mat-card-content>
 
-					<div fxFlexFill *ngIf="recording && recording.summary.entries" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-between none">
+					<div fxFlexFill *ngIf="recording && recording.summary && recording.summary.entries" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-between none">
 						<div fxLayoutAlign="left center" class="desc-entry" *ngFor="let entry of recording.summary.entries">
 							<mat-icon class="desc-icon">{{entry.icon}}</mat-icon>
 							<div fxLayout="column">
