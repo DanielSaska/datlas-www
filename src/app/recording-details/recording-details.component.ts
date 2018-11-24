@@ -90,6 +90,8 @@ export class RecordingDetailsComponent implements OnInit {
 				for (let a of res.analysis) {
 					res.ana.push(null);
 				}
+				if (!res.sumamry) { res.summary = {}; }
+
 				if (res.summary.youtube) {
 					res.summary.youtube_safe = this._sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/"+res.summary.youtube);
 				}
