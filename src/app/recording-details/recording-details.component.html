@@ -107,7 +107,9 @@
 					</div>
 				</mat-card-content>
 				<mat-card-actions>
+					<div *ngIf="data_url">
 					<a href="{{data_url}}/{{dt.data_type}}/{{recording._id}}.p" class="button-link"><button mat-button>Download</button></a>
+					</div>
 					<button mat-button (click)="showDetails(dt)">Details</button>
 				</mat-card-actions>
 			</mat-card>

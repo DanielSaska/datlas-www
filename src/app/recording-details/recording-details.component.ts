@@ -78,7 +78,7 @@ export class RecordingDetailsComponent implements OnInit {
 	loading = true;
 	recording: Recording;
 	data_types: DataType[] = [];
-	data_url: string = cfg.dataUrl;
+	data_url: string = (cfg.dataUrl && cfg.dataUrl.length > 0) cfg.dataUrl : null;
 	detailsDialogRef: MatDialogRef<RecordingDetailsDialogComponent>;
 
 
