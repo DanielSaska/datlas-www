@@ -106,7 +106,7 @@
 						</div>
 					</div>
 				</mat-card-content>
-				<mat-card-actions>
+				<mat-card-actions fxLayout="row">
 					<div *ngIf="data_url">
 					<a href="{{data_url}}/{{dt.data_type}}/{{recording._id}}.p" class="button-link"><button mat-button>Download</button></a>
 					</div>
@@ -143,14 +143,14 @@
 		<div *ngIf="recording && recording.ana.length > 0">
 			<mat-tab label="Analysis">
 				<mat-card *ngFor="let a of recording.ana">
-					<div *ngIf="a" fxFlexFill>
+					<div *ngIf="a">
 						<mat-card-header class="beh-header">
 							<div mat-card-avatar class="beh-image"></div>
 							<mat-card-title>{{a.data.title}}</mat-card-title>
 							<mat-card-subtitle>{{a.data.subtitle}}</mat-card-subtitle>
 						</mat-card-header>
-						<mat-card-content fxFlexFill>
-							<div *ngIf="a.data.plot" mat-card-image fxLayoutAlign="center center"><plotly-plot [data]="a.data.plot.data" [layout]="a.data.plot.layout" class="addon_plot" [useResizeHandler]="true"></plotly-plot></div>
+						<mat-card-content>
+							<div *ngIf="a.data.plot" mat-card-image><plotly-plot [data]="a.data.plot.data" [layout]="a.data.plot.layout" class="addon_plot" [useResizeHandler]="true"></plotly-plot></div>
 							<div [innerHTML]="a.data.html"></div>
 						</mat-card-content>
 					</div>
