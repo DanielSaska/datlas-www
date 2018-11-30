@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
+import { ConfigService } from '../config.service';
 
-import cfg from '../../config';
 
 export interface BehSeqElem {
 	details: string[];
@@ -89,9 +89,9 @@ export class GroupDetailsComponent implements OnInit {
 	group: Group;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-	constructor(private http: HttpClient,private route: ActivatedRoute,private _sanitizer: DomSanitizer, private snackBar: MatSnackBar) {
+	constructor(private cfg : ConfigService, private http: HttpClient,private route: ActivatedRoute,private _sanitizer: DomSanitizer, private snackBar: MatSnackBar) {
 		this.route.params.subscribe(params => {
-			this.http.get<Group>(cfg.apiUrl+"/v1/group/"+params.id).subscribe(async (res: Group) => {
+			this.http.get<Group>(this.cfg.apiUrl()+"/v1/group/"+params.id).subscribe(async (res: Group) => {
 				res.ana = [];
 				for (let a of res.analysis) {
 					res.ana.push(null);
@@ -102,13 +102,13 @@ export class GroupDetailsComponent implements OnInit {
 				if (res.analysis) {
 					for (let ai = 0; ai < res.analysis.length; ++ai) {
 						let a = res.analysis[ai];
-						let url = cfg.apiUrl+"/v1/group/analysis/"+a;
+						let url = this.cfg.apiUrl()+"/v1/group/analysis/"+a;
 						let r = await this.http.get<Visualization>(url).toPromise();
 						res.ana[ai] = r;
 					}
 				}
 				if (res.n_recordings > 0) {
-					let url = cfg.apiUrl+"/v1/group/"+this.group._id+"/recordings/0";
+					let url = this.cfg.apiUrl()+"/v1/group/"+this.group._id+"/recordings/0";
 					this.http.get<Response>(url).subscribe((res: Response) => {
 						this.updateTable(res);
 					});
@@ -154,7 +154,7 @@ export class GroupDetailsComponent implements OnInit {
 	flipPage() {
 		let start = this.paginator.pageIndex * <number>this.recordings.pg_size;
 		this.recordings = null;
-		this.http.get<Response>(cfg.apiUrl+"/v1/group/"+this.group._id+"/recordings/"+start.toString()).subscribe((res: Response) => {
+		this.http.get<Response>(this.cfg.apiUrl()+"/v1/group/"+this.group._id+"/recordings/"+start.toString()).subscribe((res: Response) => {
 			this.updateTable(res);
 		});
 	}

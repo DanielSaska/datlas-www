@@ -3,8 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { ConfigService } from '../config.service';
 
-import cfg from '../../config';
 
 export interface GroupDetails {
 	name: string;
@@ -35,8 +35,8 @@ export class GroupListComponent implements OnInit {
 	response: Response = null;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-	constructor(private http: HttpClient) {
-		this.http.get<Response>(cfg.apiUrl+"/v1/groups/0").subscribe((res: Response) => {
+	constructor(private cfg : ConfigService, private http: HttpClient) {
+		this.http.get<Response>(this.cfg.apiUrl()+"/v1/groups/0").subscribe((res: Response) => {
 			this.response = res;
 
 		});
@@ -46,7 +46,7 @@ export class GroupListComponent implements OnInit {
 
 	flipPage() {
 		let start = this.paginator.pageIndex * <number>this.response.pg_size;
-		this.http.get<Response>(cfg.apiUrl+"/v1/groups/"+start.toString()).subscribe((res: Response) => {
+		this.http.get<Response>(this.cfg.apiUrl()+"/v1/groups/"+start.toString()).subscribe((res: Response) => {
 			this.response = res;
 
 		});

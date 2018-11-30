@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import cfg from '../../config';
+import { ConfigService } from '../config.service';
 
 @Component({
   selector: 'app-landing',
@@ -7,10 +7,10 @@ import cfg from '../../config';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
-	title = cfg.title;
+	title = this.cfg.title();
 
 
-  constructor() { }
+  constructor(private cfg : ConfigService) { }
 
   ngOnInit() {
   }

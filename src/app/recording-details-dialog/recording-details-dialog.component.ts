@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ConfigService } from '../config.service';
 
 @Component({
 	selector: 'app-recording-details-dialog',
@@ -8,7 +9,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class RecordingDetailsDialogComponent implements OnInit {
 
-	constructor(private dialogRef: MatDialogRef<RecordingDetailsDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+	constructor(private cfg : ConfigService, private dialogRef: MatDialogRef<RecordingDetailsDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
 	}
 
 	ngOnInit() {
