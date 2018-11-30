@@ -35,7 +35,7 @@ export class ExperimentListComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 	constructor(private cfg : ConfigService, private http: HttpClient) {
-		this.http.get<Response>(this.cfg.apiUrl+"/v1/experiments/0").subscribe((res: Response) => {
+		this.http.get<Response>(this.cfg.apiUrl()+"/v1/experiments/0").subscribe((res: Response) => {
 			this.response = res;
 		});
 
@@ -44,7 +44,7 @@ export class ExperimentListComponent implements OnInit {
 
 	loadLessonsPage() {
 		let start = this.paginator.pageIndex * <number>this.response.pg_size;
-		this.http.get<Response>(this.cfg.apiUrl+"/v1/experiments/"+start.toString()).subscribe((res: Response) => {
+		this.http.get<Response>(this.cfg.apiUrl()+"/v1/experiments/"+start.toString()).subscribe((res: Response) => {
 			this.response = res;
 		});
 	}
