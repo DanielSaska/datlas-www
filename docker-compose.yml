@@ -1,0 +1,12 @@
+version: "2"
+services:
+  datlas-www:
+    container_name: datlas-www
+    build: .
+    image: danielsaska/datlas-www
+    restart: always
+    ports:
+      - 8081:80
+    volumes:
+      - ./src/assets/config.json:/usr/share/nginx/html/assets/config.json
+
