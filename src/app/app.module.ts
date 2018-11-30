@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -45,6 +45,7 @@ import {
 	MatTreeModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
 	exports: [
@@ -104,6 +105,13 @@ import { GroupDetailsComponent } from './group-details/group-details.component';
 import { GroupListComponent } from './group-list/group-list.component';
 import { RecordingDetailsDialogComponent } from './recording-details-dialog/recording-details-dialog.component';
 import { LandingComponent } from './landing/landing.component';
+import { ConfigService } from './config.service';
+
+const appInitializerFn = (cfg: ConfigService) => {
+  return () => {
+    return cfg.loadConfig();
+  };
+};
 
 @NgModule({
 	declarations: [
@@ -133,7 +141,15 @@ import { LandingComponent } from './landing/landing.component';
 		RecordingDetailsDialogComponent
 	],
 
-	providers: [],
+	providers: [
+		ConfigService,
+		{
+			provide: APP_INITIALIZER,
+			useFactory: appInitializerFn,
+			multi: true,
+			deps: [ConfigService]
+		}
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

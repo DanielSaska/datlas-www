@@ -3,8 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-
-import cfg from '../../config';
+import {ConfigService } from "../config.service";
 
 export interface TagDetails {
 	name: string;
@@ -33,8 +32,8 @@ export class TagListComponent implements OnInit {
 	response: Response = null;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-	constructor(private http: HttpClient) {
-		this.http.get<Response>(cfg.apiUrl+"/v1/tags/0").subscribe((res: Response) => {
+	constructor(private cfg : ConfigService, private http: HttpClient) {
+		this.http.get<Response>(this.cfg.apiUrl()+"/v1/tags/0").subscribe((res: Response) => {
 			this.response = res;
 
 		});
@@ -44,7 +43,7 @@ export class TagListComponent implements OnInit {
 
 	loadLessonsPage() {
 		let start = this.paginator.pageIndex * <number>this.response.pg_size;
-		this.http.get<Response>(cfg.apiUrl+"/v1/tags/"+start.toString()).subscribe((res: Response) => {
+		this.http.get<Response>(this.cfg.apiUrl()+"/v1/tags/"+start.toString()).subscribe((res: Response) => {
 			this.response = res;
 
 		});

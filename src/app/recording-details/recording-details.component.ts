@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { RecordingDetailsDialogComponent } from '../recording-details-dialog/recording-details-dialog.component';
+import { ConfigService } from '../config.service';
 
-import cfg from '../../config';
 
 export interface SummarySequenceElem {
 	details: string[];
@@ -78,14 +78,14 @@ export class RecordingDetailsComponent implements OnInit {
 	loading = true;
 	recording: Recording;
 	data_types: DataType[] = [];
-	data_url: string = (cfg.dataUrl && cfg.dataUrl.length > 0) ? cfg.dataUrl : null;
+	data_url: string = (this.cfg.dataUrl() && this.cfg.dataUrl().length > 0) ? this.cfg.dataUrl() : null;
 	detailsDialogRef: MatDialogRef<RecordingDetailsDialogComponent>;
 
 
-	constructor(private http: HttpClient,private route: ActivatedRoute,private _sanitizer: DomSanitizer, private snackBar: MatSnackBar, private dialog: MatDialog) {
+	constructor(private cfg: ConfigService, private http: HttpClient,private route: ActivatedRoute,private _sanitizer: DomSanitizer, private snackBar: MatSnackBar, private dialog: MatDialog) {
 		this.route.params.subscribe(params => {
 
-			this.http.get<Recording>(cfg.apiUrl+"/v1/recording/"+params.id).subscribe(async (res: Recording) => {
+			this.http.get<Recording>(this.cfg.apiUrl()+"/v1/recording/"+params.id).subscribe(async (res: Recording) => {
 				res.ana = [];
 				for (let a of res.analysis) {
 					res.ana.push(null);
@@ -97,7 +97,7 @@ export class RecordingDetailsComponent implements OnInit {
 				this.recording = res;
 				//console.log(res);
 				for (let dtype of res.data_types) {
-					let url = cfg.apiUrl+"/v1/recording/"+params.id+"/"+dtype;
+					let url = this.cfg.apiUrl()+"/v1/recording/"+params.id+"/"+dtype;
 					this.http.get<DataType>(url).subscribe(async (dt: DataType) => {
 						//console.log(dt);
 						dt.vis = [];
@@ -112,7 +112,7 @@ export class RecordingDetailsComponent implements OnInit {
 						this.data_types.push(dt);
 						for (let vi = 0; vi < dt.visualizations.length; ++vi) {
 							let v = dt.visualizations[vi];
-							let url = cfg.apiUrl+"/v1/visualization/"+v;
+							let url = this.cfg.apiUrl()+"/v1/visualization/"+v;
 							let r = await this.http.get<Visualization>(url).toPromise();
 							dt.vis[vi] = r;
 						}
@@ -122,7 +122,7 @@ export class RecordingDetailsComponent implements OnInit {
 
 				for (let ai = 0; ai < res.analysis.length; ++ai) {
 					let a = res.analysis[ai];
-					let url = cfg.apiUrl+"/v1/recording/analysis/"+a;
+					let url = this.cfg.apiUrl()+"/v1/recording/analysis/"+a;
 					let r = await this.http.get<Visualization>(url).toPromise();
 					res.ana[ai] = r;
 				}

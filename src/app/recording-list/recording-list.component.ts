@@ -3,8 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-
-import cfg from '../../config';
+import { ConfigService } from '../config.service';
 
 export interface BehSeqElem {
 	details: string[];
@@ -62,8 +61,8 @@ export class RecordingListComponent implements OnInit {
 	response: Response = null;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-	constructor(private http: HttpClient) {
-		this.http.get<Response>(cfg.apiUrl+"/v1/recordings/0").subscribe((res: Response) => {
+	constructor(private cfg : ConfigService, private http: HttpClient) {
+		this.http.get<Response>(this.cfg.apiUrl()+"/v1/recordings/0").subscribe((res: Response) => {
 			this.updateTable(res);
 		});
 
@@ -98,7 +97,7 @@ export class RecordingListComponent implements OnInit {
 
 	flipPage() {
 		let start = this.paginator.pageIndex * <number>this.response.pg_size;
-		this.http.get<Response>(cfg.apiUrl+"/v1/recordings/"+start.toString()).subscribe((res: Response) => {
+		this.http.get<Response>(this.cfg.apiUrl()+"/v1/recordings/"+start.toString()).subscribe((res: Response) => {
 			this.updateTable(res);
 		});
 	}

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
-import cfg from '../config';
+import { ConfigService } from "./config.service";
 
 @Component({
 	selector: 'app-root',
@@ -9,11 +9,11 @@ import cfg from '../config';
 })
 export class AppComponent {
 	@ViewChild(MatSidenav) sidenav: MatSidenav;
-	version: string = "0.2.0";
+	version: string = "0.2.1";
 	year: string = "2018";
-	title = cfg.title;
+	title = this.cfg.title();
 
-	constructor(){
+	constructor(private cfg : ConfigService){
 	}
 
 	toggleMenu() {
