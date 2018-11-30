@@ -9,7 +9,7 @@ import { ConfigService } from "./config.service";
 })
 export class AppComponent {
 	@ViewChild(MatSidenav) sidenav: MatSidenav;
-	version: string = "0.2.0";
+	version: string = "0.2.1";
 	year: string = "2018";
 	title = this.cfg.title();
 
