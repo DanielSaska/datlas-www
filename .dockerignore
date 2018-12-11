@@ -1,6 +1,6 @@
 # compiled output
 /dist
-/dist-server
+
 /tmp
 /out-tsc
 
@@ -47,3 +47,6 @@ firebase.json
 .firebaserc
 src/config.js
 src/assets/config.json
+Dockerfile
+docker-compose.yml
+Jenkinsfile
