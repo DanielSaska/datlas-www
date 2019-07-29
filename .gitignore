@@ -48,3 +48,4 @@ src/config.json
 firebase.json
 .firebaserc
 src/config.js
+src/assets/config.json
